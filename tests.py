@@ -17,21 +17,15 @@ class TestBooksCollector:
         collector.add_new_book('Что делать, если ваш кот хочет вас убить')
 
         # проверяем, что добавилось именно две
-        # словарь books_rating, который нам возвращает метод get_books_rating, имеет длину 2
-        assert len(collector.get_books_rating()) == 2
+        # словарь books_rating, который нам возвращает метод get_books_rating, имеет 2 книги
+        assert collector.books_rating == {
+            'Гордость и предубеждение и зомби': 1,
+            'Что делать, если ваш кот хочет вас убить': 1
+        }
 
     # напиши свои тесты ниже
     # чтобы тесты были независимыми в каждом из них создавай отдельный экземпляр класса BooksCollector()
 
-    #проверяем в методе __init__, что books_rating имеет тип dict
-    def test_type_of_books_rating_dict_true(self):
-        collector = BooksCollector()
-        assert type(collector.books_rating) == dict
-
-    # проверяем в методе __init__, что favorites имеет тип list
-    def test_type_of_favorites_list_true(self):
-        collector = BooksCollector()
-        assert type(collector.favorites) == list
 
     #проверяем, что одну книгу нельзя добавить дважды
     def test_check_book_cannot_be_twice_true(self):
@@ -41,8 +35,8 @@ class TestBooksCollector:
         collector.add_new_book('Гордость и предубеждение и зомби')
         collector.add_new_book('Гордость и предубеждение и зомби')
         # проверяем, что добавилась именно одна
-        # словарь books_rating, который нам возвращает метод get_books_rating, имеет длину 1
-        assert len(collector.get_books_rating()) == 1
+        # словарь books_rating, который нам возвращает метод get_books_rating содержит только 1 книгу
+        assert collector.books_rating == {'Гордость и предубеждение и зомби': 1}
 
     # проверяем, что нельзя выставить рейтинг книге, которой нет в списке
     def test_check_books_outside_list_have_not_rating_true(self):
@@ -91,7 +85,7 @@ class TestBooksCollector:
         collector = BooksCollector()
         # добавляем книгу в избранное сразу
         collector.add_book_in_favorites('Книга')
-        assert len(collector.favorites) == 0
+        assert collector.favorites == []
 
     # Проверка удаления книги из избранного.
     def test_check_delete_book_from_favorites_true(self):
@@ -102,5 +96,5 @@ class TestBooksCollector:
         collector.add_book_in_favorites('Новейшая книга')
         # Удаляем книгу из избранного
         collector.delete_book_from_favorites('Новейшая книга')
-        assert len(collector.favorites) == 0
+        assert collector.favorites == []
 
